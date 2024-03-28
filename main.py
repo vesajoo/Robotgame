@@ -93,7 +93,7 @@ class Platform(pygame.sprite.Sprite):
 #Player instance
 robot = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
 #Starting platform
-platform = Platform(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT - 50, 200, False)
+
 
 #Game loop
 while True:
@@ -106,6 +106,7 @@ while True:
 
     robot.draw()
 
+    platform = pygame.draw.rect(screen, PLATFORM, (SCREEN_WIDTH // 2 - 125, SCREEN_HEIGHT- 10, SCREEN_WIDTH // 2, SCREEN_HEIGHT - 100), 5)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
