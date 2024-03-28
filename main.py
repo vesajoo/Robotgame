@@ -42,7 +42,19 @@ class Player():
         self.gravity = True
 
     def move(self):
-        pass
+        scroll = 0
+        dx = 0
+        dy = 0
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_LEFT]:
+            dx = -10
+        
+        if key[pygame.K_RIGHT]:
+            dx = 10
+
+        self.rect.x += dx
+        self.rect.y += dy
 
     def draw(self):
         screen.blit(self.image, (self.rect.x-5, self.rect.y))
@@ -55,8 +67,11 @@ robot = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
 while True:
 
     clock.tick(FPS)
+    
+    robot.move()
 
     robot.draw()
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
