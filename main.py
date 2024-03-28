@@ -106,7 +106,7 @@ while True:
 
     robot.draw()
 
-    platform = pygame.draw.rect(screen, PLATFORM, (SCREEN_WIDTH // 2 - 125, SCREEN_HEIGHT- 10, SCREEN_WIDTH // 2, SCREEN_HEIGHT - 100), 5)
+    platform = pygame.draw.rect(screen, PLATFORM, (SCREEN_WIDTH // 2 - 125, SCREEN_HEIGHT- 5, SCREEN_WIDTH // 2, SCREEN_HEIGHT), 5)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
