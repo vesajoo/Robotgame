@@ -23,12 +23,17 @@ GRAVITY = 1
 MAX_PLATFORMS = 10
 scroll = 0
 
-
 #Colors
 WHITE = (255,255,255)
+BG = (35,15,0)
+PLATFORM = (100, 100 ,0)
 
 #Images
-robot_image = pygame.image.load('robot.png')
+robot_image = pygame.image.load('robot.png').convert_alpha()
+
+#Draw background
+def draw_bg():
+    pygame.draw.rect(screen, BG, (0,0,SCREEN_WIDTH, SCREEN_HEIGHT))
 
 #Player class
 class Player():
@@ -42,6 +47,7 @@ class Player():
         self.gravity = True
 
     def move(self):
+        #Reset variables
         scroll = 0
         dx = 0
         dy = 0
@@ -53,22 +59,50 @@ class Player():
         if key[pygame.K_RIGHT]:
             dx = 10
 
+        #Gravity
+        if self.gravity:
+            self.vel_y += GRAVITY
+            dy += self.vel_y
+
+        #Check that player doesnt go off the screen
+        if self.rect.left + dx < 0:
+            dx = -self.rect.left
+        
+        if self.rect.right + dx > SCREEN_WIDTH:
+            dx = SCREEN_WIDTH - self.rect.right
+
         self.rect.x += dx
-        self.rect.y += dy
+        self.rect.y += dy + scroll
+
+        return scroll
 
     def draw(self):
         screen.blit(self.image, (self.rect.x-5, self.rect.y))
         pygame.draw.rect(screen,WHITE,self.rect, 2)
 
+
+#Platfrom class
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, moving):
+        pygame.sprite.Sprite.__init__(self)
+        self.moving = moving
+        
+
+
+
 #Player instance
 robot = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
+#Starting platform
+platform = Platform(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT - 50, 200, False)
 
 #Game loop
 while True:
 
     clock.tick(FPS)
-    
+
     robot.move()
+
+    draw_bg()
 
     robot.draw()
 
