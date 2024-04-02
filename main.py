@@ -147,7 +147,7 @@ platform_group = pygame.sprite.Group()
 #Starting platform
 platform = Platform(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT - 50, 200, False)
 platform_group.add(platform)
-print(platform.rect.y)
+
 #Game loop
 while True:
 
@@ -159,9 +159,9 @@ while True:
 
     #Generate platforms
     if len(platform_group) < MAX_PLATFORMS:
-        p_w = random.randint(40, 60)
+        p_w = random.randint(60, 80)
         p_x = random.randint(0, SCREEN_WIDTH - p_w)
-        p_y = platform.rect.y - random.randint(80, 120)
+        p_y = platform.rect.y - random.randint(100, 120)
         p_type = random.randint(1, 2)
         if p_type == 1 and score > 1000:
             p_moving = True
