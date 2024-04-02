@@ -84,6 +84,9 @@ class Player():
                         self.rect.bottom = platform.rect.top
                         dy = 0
                         self.gravity = False
+                        #Move player with platform if it is moving
+                        if platform.moving:
+                            dx += platform.direction * platform.speed
                         if key[pygame.K_SPACE]:
                             self.vel_y = -20
                             self.gravity = True
@@ -144,6 +147,7 @@ platform_group = pygame.sprite.Group()
 #Starting platform
 platform = Platform(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT - 50, 200, False)
 platform_group.add(platform)
+print(platform.rect.y)
 #Game loop
 while True:
 
@@ -154,7 +158,6 @@ while True:
     draw_bg()
 
     #Generate platforms
-    #Fix this pls
     if len(platform_group) < MAX_PLATFORMS:
         p_w = random.randint(40, 60)
         p_x = random.randint(0, SCREEN_WIDTH - p_w)
@@ -177,8 +180,6 @@ while True:
     #Draw sprites
     platform_group.draw(screen)
     robot.draw()
-
-    platform = pygame.draw.rect(screen, PLATFORM, (SCREEN_WIDTH // 2 - 125, SCREEN_HEIGHT- 5, SCREEN_WIDTH // 2, SCREEN_HEIGHT), 5)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
